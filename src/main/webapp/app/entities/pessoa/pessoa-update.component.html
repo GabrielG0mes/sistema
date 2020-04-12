@@ -1,0 +1,112 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-pessoa-heading">Criar ou editar Pessoa</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nome">Nome</label>
+                    <input type="text" class="form-control" name="nome" id="field_nome"
+                           formControlName="nome">
+
+                    <div *ngIf="editForm.get('nome')!.invalid && (editForm.get('nome')!.dirty || editForm.get('nome')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nome')?.errors?.maxlength">
+                            Este campo não pode ter mais que 100 caracteres.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nome')?.errors?.pattern">
+                            Formato inválido.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_documento">Documento</label>
+                    <input type="number" class="form-control" name="documento" id="field_documento"
+                           formControlName="documento"/>
+
+                    <div *ngIf="editForm.get('documento')!.invalid && (editForm.get('documento')!.dirty || editForm.get('documento')!.touched)">
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('documento')?.errors?.pattern">
+                            Formato inválido.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dataNascimento">Data Nascimento</label>
+                    <div class="d-flex">
+                        <input id="field_dataNascimento" type="datetime-local" class="form-control" name="dataNascimento" formControlName="dataNascimento" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+
+                    <div *ngIf="editForm.get('dataNascimento')!.invalid && (editForm.get('dataNascimento')!.dirty || editForm.get('dataNascimento')!.touched)">
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('dataNascimento')?.errors?.invalidDate">
+                            Data não pode ser depois de hoje.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nomeMae">Nome Mae</label>
+                    <input type="text" class="form-control" name="nomeMae" id="field_nomeMae"
+                           formControlName="nomeMae"/>
+
+                    <div *ngIf="editForm.get('nomeMae')!.invalid && (editForm.get('nomeMae')!.dirty || editForm.get('nomeMae')!.touched)">
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('nomeMae')?.errors?.maxlength">
+                            Este campo não pode ter mais que 100 caracteres.
+                        </small>
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('nomeMae')?.errors?.pattern">
+                            Formato inválido.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nomePai">Nome Pai</label>
+                    <input type="text" class="form-control" name="nomePai" id="field_nomePai"
+                           formControlName="nomePai"/>
+
+                    <div *ngIf="editForm.get('nomePai')!.invalid && (editForm.get('nomePai')!.dirty || editForm.get('nomePai')!.touched)">
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('nomePai')?.errors?.maxlength">
+                            Este campo não pode ter mais que 100 caracteres.
+                        </small>
+                        <small class="form-text text-danger"
+                                *ngIf="editForm.get('nomePai')?.errors?.pattern">
+                            Formato inválido.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tipo">Tipo</label>
+                    <select class="form-control" name="tipo" formControlName="tipo" id="field_tipo">
+                        <option value="FISICA">FISICA</option>
+                        <option value="JURIDICA">JURIDICA</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancelar</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Salvar</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

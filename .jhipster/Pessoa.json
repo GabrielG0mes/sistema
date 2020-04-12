@@ -1,0 +1,57 @@
+{
+    "name": "Pessoa",
+    "fields": [
+        {
+            "fieldName": "nome",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "documento",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataNascimento",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "nomeMae",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nomePai",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dataCadastro",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "loginOperador",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoPessoa",
+            "fieldValues": "FISICA,JURIDICA"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "telefone",
+            "otherEntityRelationshipName": "pessoa",
+            "relationshipName": "telefone"
+        }
+    ],
+    "changelogDate": "20200410214200",
+    "entityTableName": "pessoa",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

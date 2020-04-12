@@ -1,0 +1,52 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="telefone">
+            <h2><span>Telefone</span> {{ telefone.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>D DD</span></dt>
+                <dd>
+                    <span>{{ telefone.dDD }}</span>
+                </dd>
+                <dt><span>Numero</span></dt>
+                <dd>
+                    <span>{{ telefone.numero }}</span>
+                </dd>
+                <dt><span>Tipo</span></dt>
+                <dd>
+                    <span>{{ telefone.tipo }}</span>
+                </dd>
+                <dt><span>Data Cadastro</span></dt>
+                <dd>
+                    <span>{{ telefone.dataCadastro }}</span>
+                </dd>
+                <dt><span>Login Operador</span></dt>
+                <dd>
+                    <span>{{ telefone.loginOperador }}</span>
+                </dd>
+                <dt><span>Pessoa</span></dt>
+                <dd>
+                    <div *ngIf="telefone.pessoaId">
+                        <a [routerLink]="['/pessoa', telefone.pessoaId, 'view']">{{ telefone.pessoaId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Voltar</span>
+            </button>
+
+            <button type="button" *jhiHasAnyAuthority="'ROLE_GERENTE'"
+                    [routerLink]="['/telefone', telefone.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editar</span>
+            </button>
+        </div>
+    </div>
+</div>

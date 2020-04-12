@@ -1,0 +1,85 @@
+<div>
+    <h2 id="page-heading">
+        <span>Telefones</span>
+
+        <button *jhiHasAnyAuthority="'ROLE_GERENTE'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-telefone" [routerLink]="['/telefone/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Cadastrar Telefone
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="telefones?.length === 0">
+        <span>Nenhum registro encontrado</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="telefones?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dDD"><span>D DD</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="numero"><span>Numero</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tipo"><span>Tipo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dataCadastro"><span>Data Cadastro</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="loginOperador"><span>Login Operador</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pessoaId"><span>Pessoa</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let telefone of telefones ;trackBy: trackId">
+                    <td><a [routerLink]="['/telefone', telefone.id, 'view']">{{ telefone.id }}</a></td>
+                    <td>{{ telefone.dDD }}</td>
+                    <td>{{ telefone.numero }}</td>
+                    <td>{{ telefone.tipo }}</td>
+                    <td>{{ telefone.dataCadastro | date:'medium' }}</td>
+                    <td>{{ telefone.loginOperador }}</td>
+                    <td>
+                        <div *ngIf="telefone.pessoaId">
+                            <a [routerLink]="['/pessoa', telefone.pessoaId , 'view']" >{{ telefone.pessoaId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/telefone', telefone.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">Ver</span>
+                            </button>
+
+                            <button type="submit" *jhiHasAnyAuthority="'ROLE_GERENTE'"
+                                    [routerLink]="['/telefone', telefone.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Editar</span>
+                            </button>
+
+                            <button type="submit" *jhiHasAnyAuthority="'ROLE_GERENTE'" (click)="delete(telefone)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Excluir</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="telefones?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

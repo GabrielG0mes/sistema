@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1" author="gabriel">
+        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+    </changeSet>
+    <changeSet id="2" author="gabriel">
+        <createTable tableName="operador">
+            <column name="id" type="bigint" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(15)">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_operador_login"/>
+            </column>
+            <column name="senha" type="varchar(60)"/>
+            <column name="nome" type="varchar(100)"/>
+            <column name="login_operador" type="varchar(15)"/>
+            <column name="data_cadastro" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="perfil">
+            <column name="nome" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="operador_perfil">
+            <column name="operador_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="perfil_nome" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="operador_id, perfil_nome" tableName="operador_perfil"/>
+
+        <addForeignKeyConstraint baseColumnNames="perfil_nome"
+                                 baseTableName="operador_perfil"
+                                 constraintName="fk_perfil_nome"
+                                 referencedColumnNames="nome"
+                                 referencedTableName="perfil"/>
+
+        <addForeignKeyConstraint baseColumnNames="operador_id"
+                                 baseTableName="operador_perfil"
+                                 constraintName="fk_operador_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="operador"/>
+
+        <addNotNullConstraint   columnName="senha"
+                                columnDataType="varchar(60)"
+                                tableName="operador"/>
+        <loadData
+                  file="config/liquibase/data/operador.csv"
+                  separator=";"
+                  tableName="operador">
+            <column name="id" type="numeric"/>
+            <column name="data_cadastro" type="timestamp"/>
+        </loadData>
+        <dropDefaultValue tableName="operador" columnName="data_cadastro" columnDataType="datetime"/>
+        <loadData
+                  file="config/liquibase/data/perfil.csv"
+                  separator=";"
+                  tableName="perfil">
+            <column name="nome" type="string"/>
+        </loadData>
+
+        <loadData
+                  file="config/liquibase/data/operador_perfil.csv"
+                  separator=";"
+                  tableName="operador_perfil">
+            <column name="operador_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

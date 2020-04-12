@@ -1,0 +1,19 @@
+<form *ngIf="user" name="deleteForm">
+    <div class="modal-header">
+        <h4 class="modal-title">Operador criado</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="ok()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <p>A senha do Operador é: {{ user.senha }}</p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="ok()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span>OK</span>
+        </button>
+    </div>
+</form>

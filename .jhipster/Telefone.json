@@ -1,0 +1,46 @@
+{
+    "name": "Telefone",
+    "fields": [
+        {
+            "fieldName": "dDD",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "numero",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tipo",
+            "fieldType": "TipoTelefone",
+            "fieldValues": "CELULAR,FIXO,COMERCIAL"
+        },
+        {
+            "fieldName": "dataCadastro",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "loginOperador",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "pessoa",
+            "otherEntityRelationshipName": "telefone",
+            "relationshipName": "pessoa",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200410214300",
+    "entityTableName": "telefone",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

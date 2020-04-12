@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-3">
+        <span class="hipster img-fluid rounded"></span>
+    </div>
+
+    <div class="col-md-9">
+        <h1 class="display-4">Bem-vindo!</h1>
+
+        <p class="lead">Página inicial</p>
+
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-success" *ngSwitchCase="true">
+                <span id="home-logged-message" *ngIf="account">Você está logado como "{{ account.login }}".</span>
+            </div>
+
+            <div class="alert alert-warning" *ngSwitchCase="false">
+                <span>Se você deseja entrar, </span>
+                <a class="alert-link" (click)="login()">Clique aqui</a><span><br/>. Credenciais:<br/>- Administrador (login="admin" and password="admin") <br/>.</span>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
